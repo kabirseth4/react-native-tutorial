@@ -1,6 +1,7 @@
 import { Tabs, Redirect } from "expo-router";
 import { Image, Text, View } from "react-native";
 import { icons } from "../../constants";
+import { StatusBar } from "expo-status-bar";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
@@ -9,7 +10,7 @@ const TabIcon = ({ icon, color, name, focused }) => {
         source={icon}
         resizeMode="contain"
         tintColor={color}
-        className="w-6 h-6"
+        className="h-6 w-6"
       />
       <Text
         className={`${focused ? "font-psemibold" : "font-pregular"} text-xs`}
@@ -98,6 +99,8 @@ const TabsLayout = () => {
           }}
         />
       </Tabs>
+
+      <StatusBar backgroundColor="#161622" style="light" />
     </>
   );
 };

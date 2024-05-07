@@ -4,10 +4,12 @@ import { images } from "../../constants";
 import { FormField } from "../../components/FormField";
 import { CustomButton } from "../../components/CustomButton";
 import { useState } from "react";
-import { Link } from "expo-router";
-import { signIn } from "../../lib/appwrite";
+import { Link, router } from "expo-router";
+import { getCurrentUser, signIn } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
+  const { setUser, setIsLoggedIn } = useGlobalContext();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -25,6 +27,10 @@ const SignIn = () => {
 
     try {
       await signIn(email, password);
+
+      const user = await getCurrentUser();
+      setUser(user);
+      setIsLoggedIn(true);
 
       router.replace("/home");
     } catch (error) {
